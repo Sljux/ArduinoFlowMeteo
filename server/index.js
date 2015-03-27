@@ -45,7 +45,7 @@ api.webSocket.connect(function (flowSocket) {
     });
 });
 
-server.listen(8080);
+server.listen(process.env.PORT || 8080);
 
 function sendInitialDrop() {
     if (!latestDrop) {
