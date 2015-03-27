@@ -1,0 +1,44 @@
+<div flex layout="column" layout-align="center center" ng-if="!isBootstraped">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    <h2>Loading data...</h2>
+</div>
+<div flex layout="column" layout-align="space-between center" ng-if="isBootstraped">
+
+    <div flex layout="row" layout-sm="column" layout-margin layout-padding class="conditions">
+        <div flex layout="column" layout-align="space-around" class="inside">
+            <h1>Inside</h1>
+            <div flex layout="column" layout-sm="row" layout-align="center end" layout-align-sm="center center">
+                <div class="temperature">
+                    <h2>Temperature</h2>
+                    {{ inside.value.temperature.value }} &deg;C
+                </div>
+                <div class="humidity">
+                    <h2>Humidity</h2>
+                    {{ inside.value.humidity.value }} %
+                </div>
+            </div>
+        </div>
+        <div flex layout="column" layout-align="space-between" class="outside">
+            <h1>Outside</h1>
+            <div flex layout="column" layout-sm="row" layout-align="center start" layout-align-sm="center center">
+                <div class="temperature">
+                    <h2>Temperature</h2>
+                    {{ outside.value.current.value.temperature.value }} &deg;C
+                </div>
+                <div class="humidity">
+                    <h2>Humidity</h2>
+                    {{ outside.value.current.value.humidity.value }} %
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div flex layout="column" layout-align="center center">
+        <i class="icon-{{ outside.value.current.value.icon.value }}" flex></i>
+        <h2 flex>{{ outside.value.current.value.summary.value }}</h2>
+    </div>
+
+    <div class="sync">
+        Last sync {{ readingTime.fromNow() }} [{{ readingTime.format('DD. MM. YYYY. @ HH:mm:ss') }}]
+    </div>
+</div>

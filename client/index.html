@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>End-to-end with Arduino, Flow and Angular</title>
+
+    <link rel="stylesheet" href="vendor/angular-material/angular-material.min.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/icomoon.css"/>
+</head>
+<body ng-app="meteoApp">
+
+<div ng-include="'partials/header.html'"></div>
+<div ng-view layout="column" layout-fill></div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="vendor/angular/angular.min.js"></script>
+<script src="vendor/angular-route/angular-route.min.js"></script>
+<script src="vendor/angular-animate/angular-animate.min.js"></script>
+<script src="vendor/angular-aria/angular-aria.min.js"></script>
+<script src="vendor/angular-material/angular-material.min.js"></script>
+<script src="vendor/angular-socket-io/socket.min.js"></script>
+<script src="vendor/momentjs/moment.js"></script>
+
+<script src="scripts/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+* {
+    font-weight: 200;
+}
+
+h1 {
+    font-weight: 400;
+}
+
+[ng-view] {
+    min-height: 90%;
+}
+
+.conditions {
+    width: 100%;
+}
+
+.sync {
+    height: 10%;
+    text-align: center;
+}
+
+i[class*='icon-'] {
+    font-size: 10em;
+}
+
+.inside h1 {
+    text-align: right;
+}
+
+.outside h1 {
+    text-align: left;
+}
+
+.inside .temperature,
+.inside .humidity {
+    text-align: right;
+}
+
+@media all and (max-width: 600px) {
+    .inside h1,
+    .outside h1 {
+        text-align: center;
+    }
+
+    .temperature {
+        width: 50%;
+        text-align: center !important;
+    }
+
+    .humidity {
+        width: 50%;
+        text-align: center !important;
+    }
+}
