@@ -1,6 +1,7 @@
 var path = require('path'),
     express = require('express'),
-    flowthings = require('flowthings');
+    flowthings = require('flowthings'),
+    config = require('./config');
 
 var app = express();
 var server = require('http').createServer(app);
@@ -19,52 +20,21 @@ app.get('*', function (req, res) {
 });
 
 var api = flowthings.API({
-    account: 'sljux',
-    token: '20Wp8X0BBCySqHkzitGEaizB56aBcQNj'
+    account: config.accountId,
+    token: config.masterToken
 });
 
-var flowId = 'f550bdf750cf28ddd51de2d9a';
-var latestDrop = null;
-
-io.on('connection', function (socket) {
-    var address = socket.handshake.address;
-
-    console.info('[%s] CONNECTED @ %s', address, new Date());
-
-    sendInitialDrop();
-
-    socket.on('disconnect', function () {
-        console.info('[%s] DISCONNECTED @ %s', address, new Date());
-    })
-});
+var flowId = config.meteoFlowId;
 
 api.webSocket.connect(function (flowSocket) {
     flowSocket.flow.subscribe(flowId, function (response) {
-        latestDrop = response.value;
-        sendDrop()
+        var drop = {
+            time: response.value.creationDate,
+            data: response.value.elems
+        };
+
+        io.emit('drop', drop);
     });
 });
 
 server.listen(process.env.PORT || 8080);
-
-function sendInitialDrop() {
-    if (!latestDrop) {
-        api.drop(flowId).find({limit: 1}, function (err, res) {
-            if (!err) {
-                latestDrop = res[0];
-                sendDrop();
-            }
-        });
-    } else {
-        sendDrop();
-    }
-}
-
-function sendDrop() {
-    var drop = {
-        time: latestDrop.creationDate,
-        data: latestDrop.elems
-    };
-
-    io.emit('drop', drop);
-}
